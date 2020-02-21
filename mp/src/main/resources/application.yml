@@ -1,0 +1,55 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: mc-web
+  datasource:
+    username: ${mc.config.mysql-username}
+    password: ${mc.config.mysql-password}
+    url: jdbc:mysql://${mc.host.mysql-server}:3306/mptest?useSSL=false
+    driver-class-name: com.mysql.jdbc.Driver
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+    default-property-inclusion: non_null
+  boot:
+    admin:
+      client:
+        url: http://${mc.host.monitor-server}:9082
+  servlet:
+    multipart:
+      max-file-size: 500MB
+      max-request-size: 5000MB
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+server:
+  port: 9700
+
+mybatis:
+  mapper-locations:
+    - classpath:mapper/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+logging:
+  level:
+    com.microcyber.mccloud: debug #平时开发,要看到debug日志
+  file:
+    max-size: 20MB
+  path: logs
+  pattern:
+    file: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) %clr(${PID}){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n%wEx"
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${mc.host.eureka-server}:7001/eureka
+  instance:
+    instance-id: mc-web${random.int}
+    prefer-ip-address: true

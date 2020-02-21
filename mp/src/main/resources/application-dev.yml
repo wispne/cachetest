@@ -1,0 +1,10 @@
+mc:
+  host:
+    eureka-server: 192.168.2.186
+    redis-server: 192.168.2.186
+    mysql-server: 129.28.193.232
+    influxdb-server: 192.168.2.186
+    monitor-server: 192.168.2.186
+  config:
+    mysql-username: root
+    mysql-password: ctQQ1990!
